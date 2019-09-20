@@ -42,14 +42,14 @@ server {
     rewrite ^/doupload/?$ /index.php?act=doupload last;
     rewrite ^/reveal/?$ /index.php?act=reveal last;
     rewrite ^/reveallink/?$ /index.php?act=reveallink last;
-    rewrite ^/f/([a-z0-9-]+)/?(.*)?$ /getfile.php?fileid=$1&$2 last;
+    rewrite ^/f/([a-zA-Z0-9-]+)/?(.*)?$ /getfile.php?fileid=$1&$2 last;
     rewrite ^/r/([a-z0-9-]+)/?$ /revealurl.php?urlid=$1 last;
     rewrite ^/([a-z0-9-]+)/?$ /geturl.php?urlid=$1 last;
 
     # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
     location ~ \.php$ {
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_pass unix:/var/run/php5-fpm.sock;
+            fastcgi_pass unix:run/php/php7.0-fmp.sock;
             fastcgi_index index.php;
             include /etc/nginx/fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
